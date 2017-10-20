@@ -99,8 +99,9 @@
         updateSvgButton.onclick = function () {
             numSvgUpdates++;
             var i = 0;
-            for (var i = 0; i < svgRoot.children.length; i++) {
-                svgRoot.children[i].textContent = 'svg row ' + i + ' update ' + numSvgUpdates;
+            for (var c in svgRoot.children) {
+                c.textContent = 'svg row ' + i + ' update ' + numSvgUpdates;
+                i++;
             }
         };
     </script>

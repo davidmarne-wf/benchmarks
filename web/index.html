@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<body>
+
+    <div>
+        <button id="dart_add">Vanilla dart add 1000 - html table</button>
+        <button id="dart_update">Vanilla dart update 1000 - html table</button>
+        <table id="vanilla_dart_mount_point"></table>
+    </div>
+    <div>
+        <button id="js_add">Vanilla js add 1000 - html table</button>
+        <button id="js_update">Vanilla js update 1000 - html table</button>
+        <table id="vanilla_js_mount_point"></table>
+    </div>
+
+    <div>
+        <div>
+            <button id="dart_svg_add">Vanilla dart add 1000 - svg</button>
+            <button id="dart_svg_update">Vanilla dart update 1000 - svg</button>
+        </div>
+        <div>
+            <svg id="vanilla_dart_svg_mount_point"></svg>
+        </div>
+    </div>
+    <div>
+        <div>
+            <button id="js_svg_add">Vanilla js add 1000 - svg</button>
+            <button id="js_svg_update">Vanilla js update 1000 - svg</button>
+        </div>
+        <div>
+            <svg id="vanilla_js_svg_mount_point"></svg>
+        </div>
+    </div>
+
+    <script>
+        var numUpdates = 0;
+        var numRows = 0;
+        var table = document.querySelector("#vanilla_js_mount_point");
+        var addButton = document.querySelector("#js_add");
+        var updateButton = document.querySelector("#js_update");
+
+        addButton.onclick = function () {
+            for (var i = 0; i < 1000; i++) {
+                var rowI = numRows + i;
+                var newRow = document.createElement('tr');
+
+                var newTd1 = document.createElement('td');
+                var newContent1 = document.createTextNode('row ' + rowI + ' col 1 update ' + numUpdates + ' | ');
+                newTd1.appendChild(newContent1);
+
+                var newTd2 = document.createElement('td');
+                var newContent2 = document.createTextNode('row ' + rowI + ' col 2 update ' + numUpdates + ' | ');
+                newTd2.appendChild(newContent2);
+
+                var newTd3 = document.createElement('td');
+                var newContent3 = document.createTextNode('row ' + rowI + ' col 3 update ' + numUpdates);
+                newTd3.appendChild(newContent3);
+
+                newRow.appendChild(newTd1);
+                newRow.appendChild(newTd2);
+                newRow.appendChild(newTd3);
+
+                table.appendChild(newRow);
+            }
+            numRows += 1000;
+        };
+
+        updateButton.onclick = function () {
+            numUpdates++;
+            for (var i = 0; i < table.children.length; i++) {
+                var row = table.children[i];
+                for (var j = 0; j < row.children.length; j++) {
+                    row.children[j].childNodes[0].textContent = 'row ' + i + ' col ' + j + ' update ' + numUpdates + ' | '
+                }
+            }
+        };
+
+        var numSvgUpdates = 0;
+        var numSvgRows = 0;
+        var svgRoot = document.querySelector("#vanilla_js_svg_mount_point");
+        var addSvgButton = document.querySelector("#js_svg_add");
+        var updateSvgButton = document.querySelector("#js_svg_update");
+
+        addSvgButton.onclick = function () {
+            for (var i = 0; i < 1000; i++) {
+                var rowI = numSvgRows + i;
+                var newRow = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                newRow.textContent = 'svg row ' + rowI + ' update ' + numSvgUpdates;
+                newRow.setAttribute('y', rowI * 10);
+
+                svgRoot.appendChild(newRow);
+            }
+            numSvgRows += 1000;
+            svgRoot.setAttribute('style', 'height: ' + numSvgRows * 10 + 'px');
+        };
+
+        updateSvgButton.onclick = function () {
+            numSvgUpdates++;
+            var i = 0;
+            for (var i = 0; i < svgRoot.children.length; i++) {
+                svgRoot.children[i].textContent = 'svg row ' + i + ' update ' + numSvgUpdates;
+            }
+        };
+    </script>
+
+    <script src="../packages/browser/dart.js"></script>
+    <script src="index.dart.js"></script>
+</body>
+
+</html>
